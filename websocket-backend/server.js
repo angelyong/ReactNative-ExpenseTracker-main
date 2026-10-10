@@ -43,7 +43,7 @@ function getCurrentMonthKey(date = new Date()) {
 
 app.post("/budget", async (req, res) => {
   try {
-    const { userId, monthlyBudget } = req.body;
+    const { userId, monthlyBudget, categoryBudgets } = req.body;
 
     if (!userId || monthlyBudget === undefined) {
       return res.status(400).json({
@@ -54,6 +54,7 @@ app.post("/budget", async (req, res) => {
 
     await db.ref(`budgets/${userId}`).set({
       monthlyBudget: Number(monthlyBudget),
+      categoryBudgets: categoryBudgets || {},
       updatedAt: new Date().toISOString(),
     });
 
@@ -69,12 +70,21 @@ app.post("/budget", async (req, res) => {
   }
 });
 
+app.get("/budget/:userId", async (req, res) => {
+  try {
+    const snapshot = await db.ref(`budgets/${req.params.userId}`).once("value");
+    res.status(200).json({ success: true, data: snapshot.val() || { monthlyBudget: 0, categoryBudgets: {} } });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
 app.post("/expenses", async (req, res) => {
     //console.log
      console.log("POST /expenses received");
      console.log(req.body);
   try {
-    const { userId, title, amount, date } = req.body;
+    const { userId, title, amount, date, type, recurring, kind } = req.body;
 
     if (!userId || !title || amount === undefined) {
       return res.status(400).json({
@@ -93,6 +103,9 @@ app.post("/expenses", async (req, res) => {
       title,
       amount: Number(amount),
       date: expenseDate.toISOString(),
+      type: type || "Food",
+      recurring: Boolean(recurring),
+      kind: kind || "expense",
       monthKey,
       createdAt: new Date().toISOString(),
     };
@@ -113,7 +126,7 @@ app.post("/expenses", async (req, res) => {
 
       expensesSnapshot.forEach((child) => {
         const item = child.val();
-        monthlyTotal += Number(item.amount || 0);
+        if (item.kind !== "income") monthlyTotal += Number(item.amount || 0);
       });
 
       const monthlyBudget = Number(budgetData.monthlyBudget);
@@ -201,7 +214,7 @@ app.get("/notifications/:userId", async (req, res) => {
 app.put("/expenses/:userId/:expenseId", async (req, res) => {
   try {
     const { userId, expenseId } = req.params;
-    const { title, amount, date } = req.body;
+    const { title, amount, date, type, recurring, kind } = req.body;
 
     const expenseDate = date ? new Date(date) : new Date();
     const monthKey = getCurrentMonthKey(expenseDate);
@@ -211,6 +224,9 @@ app.put("/expenses/:userId/:expenseId", async (req, res) => {
       title,
       amount: Number(amount),
       date: expenseDate.toISOString(),
+      type: type || "Food",
+      recurring: Boolean(recurring),
+      kind: kind || "expense",
       monthKey,
       updatedAt: new Date().toISOString(),
     };

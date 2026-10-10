@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Theme } from '../constants/theme';
 
 const currencyOptions = [
   {
@@ -81,7 +82,7 @@ export default function CurrencySettingScreen({ navigation }) {
       >
         <View style={styles.headerCard}>
           <View style={styles.headerIcon}>
-            <Ionicons name="cash-outline" size={30} color="#7d71ff" />
+            <Ionicons name="cash-outline" size={30} color={Theme.colors.ink} />
           </View>
 
           <Text style={styles.title}>Currency Setting</Text>
@@ -144,7 +145,7 @@ export default function CurrencySettingScreen({ navigation }) {
                   <Ionicons
                     name="checkmark-circle"
                     size={24}
-                    color="#7d71ff"
+                    color={Theme.colors.ink}
                   />
                 )}
               </Pressable>
@@ -169,33 +170,33 @@ export default function CurrencySettingScreen({ navigation }) {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: '#ffffff',
+        backgroundColor: Theme.colors.paper,
   },
   scrollView: {
     flex: 1,
-    backgroundColor: '#ffffff',
+        backgroundColor: Theme.colors.paper,
   },
   container: {
     paddingHorizontal: 18,
     paddingTop: 18,
     paddingBottom: 36,
-    backgroundColor: '#ffffff',
+        backgroundColor: Theme.colors.paper,
   },
   headerCard: {
     alignItems: 'center',
     paddingVertical: 22,
     paddingHorizontal: 16,
     borderRadius: 24,
-    backgroundColor: '#f4f6fb',
-    borderWidth: 1,
-    borderColor: '#e1e6f1',
+        backgroundColor: Theme.colors.blue,
+        borderWidth: 3,
+        borderColor: Theme.colors.ink,
     marginBottom: 18,
   },
   headerIcon: {
     width: 64,
     height: 64,
     borderRadius: 32,
-    backgroundColor: '#e8edf5',
+        backgroundColor: Theme.colors.white,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 12,
@@ -203,11 +204,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 22,
     fontWeight: '700',
-    color: '#2F3A56',
+        color: Theme.colors.ink,
   },
   subtitle: {
     fontSize: 13,
-    color: '#8c99ad',
+        color: Theme.colors.muted,
     textAlign: 'center',
     marginTop: 6,
     lineHeight: 18,
@@ -218,9 +219,9 @@ const styles = StyleSheet.create({
   currencyCard: {
     minHeight: 68,
     borderRadius: 18,
-    backgroundColor: '#e8edf5',
-    borderWidth: 1,
-    borderColor: '#d5dce8',
+        backgroundColor: Theme.colors.white,
+        borderWidth: 3,
+        borderColor: Theme.colors.ink,
     paddingHorizontal: 14,
     paddingVertical: 12,
     marginBottom: 12,
@@ -229,8 +230,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   selectedCard: {
-    backgroundColor: '#f0eeff',
-    borderColor: '#7d71ff',
+    backgroundColor: Theme.colors.yellow,
+    borderColor: Theme.colors.ink,
   },
   currencyLeft: {
     flexDirection: 'row',
@@ -244,45 +245,47 @@ const styles = StyleSheet.create({
     width: 42,
     height: 42,
     borderRadius: 21,
-    backgroundColor: '#edf1f8',
+        backgroundColor: Theme.colors.paper,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 12,
   },
   selectedSymbolCircle: {
-    backgroundColor: '#7d71ff',
+    backgroundColor: Theme.colors.coral,
   },
   symbolText: {
     fontSize: 15,
     fontWeight: '700',
-    color: '#556b89',
+        color: Theme.colors.ink,
   },
   selectedSymbolText: {
-    color: '#ffffff',
+        color: Theme.colors.ink,
   },
   currencyName: {
     fontSize: 15,
     fontWeight: '700',
-    color: '#556b89',
+        color: Theme.colors.ink,
   },
   currencyCode: {
     fontSize: 12,
-    color: '#8c99ad',
+        color: Theme.colors.muted,
     marginTop: 3,
   },
   selectedText: {
-    color: '#7d71ff',
+        color: Theme.colors.ink,
   },
   selectedCode: {
-    color: '#7d71ff',
+        color: Theme.colors.ink,
   },
   saveButton: {
     height: 52,
     borderRadius: 16,
-    backgroundColor: '#7d71ff',
+        backgroundColor: Theme.colors.green,
+    borderWidth: 3,
+    borderColor: Theme.colors.ink,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#7d71ff',
+        shadowColor: Theme.colors.ink,
     shadowOffset: {
       width: 0,
       height: 6,
@@ -292,11 +295,11 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   saveButtonPressed: {
-    backgroundColor: '#5B4BFF',
+        backgroundColor: Theme.colors.coral,
     transform: [{ scale: 0.98 }],
   },
   saveButtonText: {
-    color: '#ffffff',
+        color: Theme.colors.ink,
     fontSize: 15,
     fontWeight: '700',
   },

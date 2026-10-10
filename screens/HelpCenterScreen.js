@@ -8,6 +8,7 @@ import {
   View,
 } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { Theme } from '../constants/theme';
 
 export default function HelpCenterScreen({ navigation }) {
   return (
@@ -17,7 +18,7 @@ export default function HelpCenterScreen({ navigation }) {
 
         <View style={styles.card}>
           <View style={styles.row}>
-            <Ionicons name="wallet-outline" size={20} color="#7d71ff" />
+            <Ionicons name="wallet-outline" size={20} color={Theme.colors.ink} />
             <Text style={styles.cardTitle}>How to add an expense</Text>
           </View>
           <Text style={styles.cardText}>
@@ -27,7 +28,7 @@ export default function HelpCenterScreen({ navigation }) {
 
         <View style={styles.card}>
           <View style={styles.row}>
-            <Ionicons name="create-outline" size={20} color="#7d71ff" />
+            <Ionicons name="create-outline" size={20} color={Theme.colors.ink} />
             <Text style={styles.cardTitle}>How to edit an expense</Text>
           </View>
           <Text style={styles.cardText}>
@@ -37,7 +38,7 @@ export default function HelpCenterScreen({ navigation }) {
 
         <View style={styles.card}>
           <View style={styles.row}>
-            <Ionicons name="trash-outline" size={20} color="#7d71ff" />
+            <Ionicons name="trash-outline" size={20} color={Theme.colors.ink} />
             <Text style={styles.cardTitle}>How to delete an expense</Text>
           </View>
           <Text style={styles.cardText}>
@@ -47,7 +48,7 @@ export default function HelpCenterScreen({ navigation }) {
 
         <View style={styles.card}>
           <View style={styles.row}>
-            <Ionicons name="help-circle-outline" size={20} color="#7d71ff" />
+            <Ionicons name="help-circle-outline" size={20} color={Theme.colors.ink} />
             <Text style={styles.cardTitle}>Common issues</Text>
           </View>
           <Text style={styles.cardText}>
@@ -57,7 +58,7 @@ export default function HelpCenterScreen({ navigation }) {
 
         <View style={styles.card}>
           <View style={styles.row}>
-            <Ionicons name="mail-outline" size={20} color="#7d71ff" />
+            <Ionicons name="mail-outline" size={20} color={Theme.colors.ink} />
             <Text style={styles.cardTitle}>Contact Support</Text>
           </View>
           <Text style={styles.cardText}>
@@ -73,7 +74,7 @@ export default function HelpCenterScreen({ navigation }) {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-        backgroundColor: '#ffffff',
+        backgroundColor: Theme.colors.paper,
   },
   container: {
     padding: 20,
@@ -82,17 +83,19 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: '700',
-    color: '#556b89',
+    color: Theme.colors.ink,
     marginBottom: 6,
   },
   subtitle: {
     fontSize: 16,
-    color: '#7c8da6',
+    color: Theme.colors.muted,
     marginBottom: 20,
   },
   card: {
-    backgroundColor: '#e3e8f1',
-    borderRadius: 18,
+    backgroundColor: Theme.colors.white,
+    borderRadius: Theme.radius.card,
+    borderWidth: 3,
+    borderColor: Theme.colors.ink,
     padding: 16,
     marginBottom: 14,
   },
@@ -104,13 +107,13 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#556b89',
+    color: Theme.colors.ink,
     marginLeft: 10,
   },
   cardText: {
     fontSize: 14,
     lineHeight: 20,
-    color: '#6d7f99',
+    color: Theme.colors.muted,
   },
 
 });

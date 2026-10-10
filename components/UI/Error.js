@@ -1,14 +1,15 @@
 import { View, Text } from 'react-native';
 import Button from './Button';
 import { GlobalStyles } from '../../constants/styles';
+import { Theme } from '../../constants/theme';
 
 export default function Error({ message, onConfirm }) {
   return (
-    <View className="flex-1 items-center justify-center">
-      <Text className="text-white text-lg font-semibold">
+    <View className="flex-1 items-center justify-center" style={{ backgroundColor: Theme.colors.paper, padding: 20 }}>
+      <Text style={{ color: Theme.colors.ink, fontSize: 18, fontWeight: '800' }}>
         Something Wrong Happened!
       </Text>
-      <Text className="text-gray-400">{message}</Text>
+      <Text style={{ color: Theme.colors.muted, marginTop: 6 }}>{message}</Text>
       {onConfirm && (
         <Button
           onPress={onConfirm}

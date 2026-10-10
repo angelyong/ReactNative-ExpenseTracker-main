@@ -11,6 +11,8 @@ import {
 import Ionicons from "@expo/vector-icons/Ionicons";
 import axios from "axios";
 import { API_URL, USER_ID } from "../socket";
+import { STORAGE_KEYS, writeJson } from "../utils/localStorage";
+import { Theme } from "../constants/theme";
 
 export default function SetBudgetScreen({ navigation }) {
   const [monthlyBudget, setMonthlyBudget] = useState("");
@@ -26,6 +28,8 @@ export default function SetBudgetScreen({ navigation }) {
         userId: USER_ID,
         monthlyBudget: Number(monthlyBudget),
       });
+
+      await writeJson(STORAGE_KEYS.budget, Number(monthlyBudget));
 
       Alert.alert("Success", "Monthly budget saved.");
       navigation.goBack();
@@ -77,29 +81,29 @@ export default function SetBudgetScreen({ navigation }) {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: "#ffffff",
+    backgroundColor: Theme.colors.paper,
   },
   container: {
     flex: 1,
     paddingHorizontal: 18,
     paddingTop: 18,
-    backgroundColor: "#ffffff",
+    backgroundColor: Theme.colors.paper,
   },
   headerCard: {
     alignItems: "center",
     paddingVertical: 24,
     paddingHorizontal: 16,
     borderRadius: 24,
-    backgroundColor: "#f4f6fb",
-    borderWidth: 1,
-    borderColor: "#e1e6f1",
+    backgroundColor: Theme.colors.blue,
+    borderWidth: 3,
+    borderColor: Theme.colors.ink,
     marginBottom: 18,
   },
   headerIcon: {
     width: 64,
     height: 64,
     borderRadius: 32,
-    backgroundColor: "#e8edf5",
+    backgroundColor: Theme.colors.white,
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 12,
@@ -107,20 +111,20 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 22,
     fontWeight: "700",
-    color: "#2F3A56",
+    color: Theme.colors.ink,
   },
   subtitle: {
     fontSize: 13,
-    color: "#8c99ad",
+    color: Theme.colors.muted,
     textAlign: "center",
     marginTop: 6,
     lineHeight: 18,
   },
   formCard: {
     borderRadius: 24,
-    backgroundColor: "#ffffff",
-    borderWidth: 1,
-    borderColor: "#edf1f8",
+    backgroundColor: Theme.colors.white,
+    borderWidth: 3,
+    borderColor: Theme.colors.ink,
     padding: 16,
     elevation: 3,
   },
@@ -134,9 +138,9 @@ const styles = StyleSheet.create({
   inputBox: {
     height: 54,
     borderRadius: 16,
-    backgroundColor: "#e8edf5",
-    borderWidth: 1,
-    borderColor: "#d5dce8",
+    backgroundColor: Theme.colors.paper,
+    borderWidth: 2,
+    borderColor: Theme.colors.ink,
     paddingHorizontal: 14,
     flexDirection: "row",
     alignItems: "center",
@@ -144,13 +148,13 @@ const styles = StyleSheet.create({
   currencyText: {
     fontSize: 15,
     fontWeight: "700",
-    color: "#7d71ff",
+    color: Theme.colors.ink,
     marginRight: 10,
   },
   input: {
     flex: 1,
     fontSize: 14,
-    color: "#556b89",
+    color: Theme.colors.ink,
   },
   footer: {
     marginTop: "auto",
@@ -159,13 +163,13 @@ const styles = StyleSheet.create({
   saveButton: {
     height: 52,
     borderRadius: 16,
-    backgroundColor: "#7d71ff",
+    backgroundColor: Theme.colors.green,
     justifyContent: "center",
     alignItems: "center",
     elevation: 4,
   },
   saveButtonText: {
-    color: "#ffffff",
+    color: Theme.colors.ink,
     fontSize: 15,
     fontWeight: "700",
   },

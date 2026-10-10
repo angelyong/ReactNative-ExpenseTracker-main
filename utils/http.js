@@ -8,6 +8,8 @@ export async function storeExpense(expenseData) {
     amount: Number(expenseData.price),
     date: expenseData.date,
     type: expenseData.type,
+    recurring: Boolean(expenseData.recurring),
+    kind: expenseData.kind || "expense",
   });
 
   return response.data.data.id;
@@ -22,6 +24,8 @@ export async function fetchExpensesFromFirebase() {
     price: Number(expense.amount),
     date: expense.date,
     type: expense.type || "Food",
+    recurring: Boolean(expense.recurring),
+    kind: expense.kind || "expense",
   }));
 }
 
@@ -31,6 +35,8 @@ export async function updateExpense(id, expenseData) {
     amount: Number(expenseData.price),
     date: expenseData.date,
     type: expenseData.type,
+    recurring: Boolean(expenseData.recurring),
+    kind: expenseData.kind || "expense",
   });
 }
 

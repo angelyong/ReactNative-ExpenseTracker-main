@@ -13,7 +13,6 @@ import { Provider } from "react-redux";
 
 import { socket, USER_ID } from "./socket";
 import store from "./store";
-import BannerSlider from "./components/UI/BannerSlider";
 import ManageExpenseTypesScreen from './screens/ManageExpenseTypesScreen';
 import {
   AllExpensesScreen,
@@ -25,9 +24,12 @@ import {
   CurrencySettingScreen,
   NotificationScreen,
   SetBudgetScreen,
+  HomeScreen,
+  TransactionsScreen,
+  BudgetScreen,
 } from "./screens";
 
-import { GlobalStyles } from "./constants/styles";
+import { Theme } from "./constants/theme";
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -55,24 +57,27 @@ function BottomTabs() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: GlobalStyles.colors.tobago,
-          height: 60,
-          paddingTop: 8,
-          paddingBottom: 10,
+          backgroundColor: Theme.colors.paper,
+          borderTopColor: Theme.colors.ink,
+          borderTopWidth: 2,
+          height: 72,
+          paddingTop: 7,
+          paddingBottom: 9,
         },
-        tabBarActiveTintColor: "#B9B2FF",
-        tabBarInactiveTintColor: "#ffffff",
+        tabBarActiveTintColor: Theme.colors.ink,
+        tabBarInactiveTintColor: Theme.colors.muted,
+        tabBarLabelStyle: { fontWeight: "700", fontSize: 11 },
       }}
-      sceneContainerStyle={{ backgroundColor: "#ffffff" }}
+      sceneContainerStyle={{ backgroundColor: Theme.colors.paper }}
     >
       <BottomTab.Screen
-        name="RecentExpenses"
-        component={RecentExpensesScreen}
+        name="Home"
+        component={HomeScreen}
         options={{
-          title: "Recent",
+          title: "Home",
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
-              name={focused ? "time" : "time-outline"}
+              name={focused ? "home" : "home-outline"}
               size={focused ? 26 : 20}
               color={color}
             />
@@ -81,13 +86,13 @@ function BottomTabs() {
       />
 
       <BottomTab.Screen
-        name="AllExpenses"
-        component={AllExpensesScreen}
+        name="Transactions"
+        component={TransactionsScreen}
         options={{
-          title: "All",
+          title: "Transactions",
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
-              name={focused ? "cash" : "cash-outline"}
+              name={focused ? "receipt" : "receipt-outline"}
               size={focused ? 26 : 20}
               color={color}
             />
@@ -96,7 +101,22 @@ function BottomTabs() {
       />
 
       <BottomTab.Screen
-        name="MyProfile"
+        name="Budget"
+        component={BudgetScreen}
+        options={{
+          title: "Budget",
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? "pie-chart" : "pie-chart-outline"}
+              size={focused ? 26 : 20}
+              color={color}
+            />
+          ),
+        }}
+      />
+
+      <BottomTab.Screen
+        name="Profile"
         component={MyProfileScreen}
         options={{
           title: "Profile",
@@ -119,7 +139,6 @@ function HomeWithBanner() {
       <View style={{ flex: 1 }}>
         <BottomTabs />
       </View>
-      <BannerSlider />
     </View>
   );
 }
@@ -132,43 +151,44 @@ function DrawerNavigator() {
   return (
     <Drawer.Navigator
       screenOptions={({ navigation }) => ({
-        headerStyle: { backgroundColor: GlobalStyles.colors.tobago },
-        headerTintColor: "white",
+        headerStyle: { backgroundColor: Theme.colors.paper },
+        headerTintColor: Theme.colors.ink,
         headerTitleAlign: "center",
         headerLeft: () => (
           <Ionicons
             name="menu"
             size={24}
-            color="white"
+            color={Theme.colors.ink}
             style={{ marginLeft: 15 }}
             onPress={() => navigation.toggleDrawer()}
           />
         ),
         drawerStyle: {
-          backgroundColor: "#ffffff",
+          backgroundColor: Theme.colors.paper,
         },
-        drawerActiveTintColor: "#B9B2FF",
-        drawerInactiveTintColor: "#333",
+        drawerActiveTintColor: Theme.colors.ink,
+        drawerInactiveTintColor: Theme.colors.muted,
       })}
     >
       <Drawer.Screen
         name="MainTabs"
         component={HomeWithBanner}
         options={({ route }) => {
-          const routeName =
-            getFocusedRouteNameFromRoute(route) ?? "RecentExpenses";
+            const routeName =
+            getFocusedRouteNameFromRoute(route) ?? "Home";
 
           const titleMap = {
-            RecentExpenses: "Recent Expenses",
-            AllExpenses: "All Expenses",
-            MyProfile: "Profile",
+            Home: "Home",
+            Transactions: "Transactions",
+            Budget: "Budget",
+            Profile: "Profile",
           };
 
           return {
             title: titleMap[routeName] || "Expense Tracker",
             drawerLabel: "Expenses",
             drawerIcon: ({ color, size }) => (
-              <Ionicons name="time-outline" size={size} color={color} />
+              <Ionicons name="home-outline" size={size} color={color} />
             ),
           };
         }}
@@ -300,11 +320,11 @@ export default function App() {
         <NavigationContainer>
           <Stack.Navigator
             screenOptions={{
-              headerStyle: { backgroundColor: GlobalStyles.colors.tobago },
-              headerTintColor: "white",
+              headerStyle: { backgroundColor: Theme.colors.paper },
+              headerTintColor: Theme.colors.ink,
               headerTitleAlign: "center",
               headerShadowVisible: false,
-              contentStyle: { backgroundColor: GlobalStyles.colors.vanillaIce },
+              contentStyle: { backgroundColor: Theme.colors.paper },
             }}
           >
             <Stack.Screen
@@ -321,6 +341,12 @@ export default function App() {
                 animation: "slide_from_bottom",
                 title: "Manage Expense",
               }}
+            />
+
+            <Stack.Screen
+              name="AllExpenses"
+              component={AllExpensesScreen}
+              options={{ title: "Monthly Transactions" }}
             />
 
             <Stack.Screen

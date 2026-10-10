@@ -1,12 +1,14 @@
 import { View, Text, TextInput } from 'react-native';
+import { Theme } from '../../constants/theme';
 
 export default function Input({ label, textInputConfig }) {
   return (
-    <View className="mb-5" style={{ elevation: 4 }}>
-      <Text className="text-white font-semibold">{label}</Text>
+    <View style={{ marginBottom: 16 }}>
+      <Text style={{ color: Theme.colors.ink, fontSize: 13, fontWeight: '800', marginBottom: 7 }}>{label}</Text>
       <TextInput
         {...textInputConfig}
-        className="mt-2 bg-green-100 rounded-xl px-3 py-2"
+        placeholderTextColor={Theme.colors.muted}
+        style={{ minHeight: 52, borderRadius: 15, borderWidth: 2, borderColor: Theme.colors.ink, backgroundColor: Theme.colors.paper, paddingHorizontal: 14, color: Theme.colors.ink, fontSize: 15 }}
       />
     </View>
   );

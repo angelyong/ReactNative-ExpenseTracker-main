@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import axios from "axios";
 import { API_URL, socket } from "../socket";
+import { Theme } from "../constants/theme";
 
 const USER_ID = "user123";
 
@@ -110,7 +111,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: "#f7f7f7",
+      backgroundColor: Theme.colors.paper,
   },
   header: {
     fontSize: 22,
@@ -118,14 +119,16 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   card: {
-    backgroundColor: "#ffffff",
+    backgroundColor: Theme.colors.white,
     padding: 14,
-    borderRadius: 10,
+    borderRadius: Theme.radius.card,
+    borderWidth: 3,
+    borderColor: Theme.colors.ink,
     marginBottom: 12,
     elevation: 2,
   },
   readCard: {
-    backgroundColor: "#eeeeee",
+    backgroundColor: Theme.colors.blue,
   },
   title: {
     fontSize: 16,
@@ -138,7 +141,7 @@ const styles = StyleSheet.create({
   status: {
     marginTop: 6,
     fontSize: 12,
-    color: "#555",
+    color: Theme.colors.muted,
   },
   buttonRow: {
     flexDirection: "row",
@@ -146,22 +149,26 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   readButton: {
-    backgroundColor: "#2f80ed",
+    backgroundColor: Theme.colors.green,
     padding: 8,
-    borderRadius: 6,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: Theme.colors.ink,
   },
   deleteButton: {
-    backgroundColor: "#eb5757",
+    backgroundColor: Theme.colors.coral,
     padding: 8,
-    borderRadius: 6,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: Theme.colors.ink,
   },
   buttonText: {
-    color: "#ffffff",
+    color: Theme.colors.ink,
     fontWeight: "bold",
   },
   emptyText: {
     marginTop: 30,
     textAlign: "center",
-    color: "#777",
+    color: Theme.colors.muted,
   },
 });

@@ -3,12 +3,12 @@ import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import ExpenseSummary from './ExpenseSummary';
 import ExpenseList from './ExpenseList';
-import { GlobalStyles } from '../../constants/styles';
 import { useState, useEffect } from 'react';
 
 import Loading from '../UI/Loading';
 import Button from '../UI/Button';
 import Error from '../UI/Error';
+import { Theme } from '../../constants/theme';
 
 export default function ExpenseOutput({
   period,
@@ -80,7 +80,7 @@ export default function ExpenseOutput({
       {/* ADD BUTTON */}
       <Button
         classes="my-2"
-        style={{ backgroundColor: GlobalStyles.colors.primaryButton }}
+        style={{ backgroundColor: Theme.colors.green, borderWidth: 3, borderColor: Theme.colors.ink }}
         onPress={() => navigation.navigate('ManageExpenseScreen')}
       >
         Add new Expense

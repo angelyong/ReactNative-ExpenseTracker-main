@@ -8,6 +8,7 @@ import {
   deleteExpenseType,
   createExpenseTypeTable,
 } from '../utils/db-service';
+import { Theme } from '../constants/theme';
 
 export default function ManageExpenseTypesScreen() {
   const [types, setTypes] = useState([]);
@@ -97,7 +98,7 @@ export default function ManageExpenseTypesScreen() {
   if (isLoading) {
     return (
       <View style={styles.centered}>
-        <Text>Loading...</Text>
+        <Text style={styles.loadingText}>Loading your categories...</Text>
       </View>
     );
   }
@@ -115,12 +116,15 @@ export default function ManageExpenseTypesScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Manage Expense Types</Text>
+      <Text style={styles.eyebrow}>Make your money diary feel like yours</Text>
+      <Text style={styles.title}>Expense categories</Text>
+      <Text style={styles.subtitle}>Add, rename, or remove the labels used on your transactions.</Text>
 
       <TextInput
         value={newType}
         onChangeText={setNewType}
         placeholder="Enter new expense type..."
+        placeholderTextColor={Theme.colors.muted}
         style={styles.input}
       />
 
@@ -146,14 +150,14 @@ export default function ManageExpenseTypesScreen() {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.typeRow}>
-            <Text style={styles.typeName}>{item.name}</Text>
+            <View style={styles.typeNameWrap}><View style={styles.typeDot} /><Text style={styles.typeName}>{item.name}</Text></View>
 
             <View style={styles.actionButtons}>
-              <Pressable onPress={() => startEdit(item)} style={styles.editButton}>
+              <Pressable onPress={() => startEdit(item)} style={styles.editButton} accessibilityLabel={`Edit ${item.name}`}>
                 <Text style={styles.editText}>Edit</Text>
               </Pressable>
 
-              <Pressable onPress={() => handleDelete(item.id)} style={styles.deleteButton}>
+              <Pressable onPress={() => handleDelete(item.id)} style={styles.deleteButton} accessibilityLabel={`Delete ${item.name}`}>
                 <Text style={styles.deleteText}>Delete</Text>
               </Pressable>
             </View>
@@ -168,47 +172,64 @@ export default function ManageExpenseTypesScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor: '#fff' },
-  centered: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  title: { fontSize: 20, fontWeight: 'bold', marginBottom: 16 },
+  container: { flex: 1, padding: 20, backgroundColor: Theme.colors.paper },
+  centered: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: Theme.colors.paper },
+  loadingText: { color: Theme.colors.ink, fontWeight: '700' },
+  eyebrow: { color: Theme.colors.muted, fontSize: 13, marginTop: 4 },
+  title: { fontSize: 28, fontWeight: '800', color: Theme.colors.ink, marginTop: 3 },
+  subtitle: { fontSize: 14, lineHeight: 20, color: Theme.colors.muted, marginTop: 6, marginBottom: 18 },
   input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    padding: 10,
+    minHeight: 54,
+    borderWidth: 3,
+    borderColor: Theme.colors.ink,
+    borderRadius: 16,
+    backgroundColor: Theme.colors.white,
+    color: Theme.colors.ink,
+    paddingHorizontal: 14,
     marginBottom: 10,
   },
-  buttonRow: { flexDirection: 'row', gap: 8, marginBottom: 16 },
+  buttonRow: { flexDirection: 'row', gap: 8, marginBottom: 18 },
   addButton: {
-    backgroundColor: '#7d71ff',
-    padding: 12,
-    borderRadius: 8,
+    backgroundColor: Theme.colors.green,
+    padding: 13,
+    borderRadius: 14,
+    borderWidth: 3,
+    borderColor: Theme.colors.ink,
     alignItems: 'center',
   },
   cancelButton: {
     flex: 0.3,
-    backgroundColor: '#999',
-    padding: 12,
-    borderRadius: 8,
+    backgroundColor: Theme.colors.coral,
+    padding: 13,
+    borderRadius: 14,
+    borderWidth: 3,
+    borderColor: Theme.colors.ink,
     alignItems: 'center',
   },
-  buttonText: { color: 'white', fontWeight: '600' },
+  buttonText: { color: Theme.colors.ink, fontWeight: '800' },
   typeRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
+    paddingVertical: 14,
+    paddingHorizontal: 14,
+    marginBottom: 10,
+    minHeight: 62,
+    borderRadius: 17,
+    borderWidth: 3,
+    borderColor: Theme.colors.ink,
+    backgroundColor: Theme.colors.white,
   },
-  typeName: { fontSize: 16, flex: 1 },
+  typeNameWrap: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 10 },
+  typeDot: { width: 16, height: 16, borderRadius: 8, backgroundColor: Theme.colors.yellow, borderWidth: 2, borderColor: Theme.colors.ink },
+  typeName: { fontSize: 16, fontWeight: '800', color: Theme.colors.ink },
   actionButtons: { flexDirection: 'row', gap: 12 },
-  editButton: { padding: 6 },
-  editText: { color: '#7d71ff', fontWeight: '600' },
-  deleteButton: { padding: 6 },
-  deleteText: { color: 'red', fontWeight: '600' },
-  errorText: { color: 'red', marginBottom: 12 },
-  retryButton: { backgroundColor: '#7d71ff', padding: 10, borderRadius: 8 },
-  retryText: { color: 'white' },
-  emptyText: { textAlign: 'center', color: '#999', marginTop: 20 },
+  editButton: { paddingHorizontal: 10, paddingVertical: 7, borderRadius: 10, backgroundColor: Theme.colors.blue, borderWidth: 2, borderColor: Theme.colors.ink },
+  editText: { color: Theme.colors.ink, fontWeight: '800' },
+  deleteButton: { paddingHorizontal: 10, paddingVertical: 7, borderRadius: 10, backgroundColor: Theme.colors.coral, borderWidth: 2, borderColor: Theme.colors.ink },
+  deleteText: { color: Theme.colors.ink, fontWeight: '800' },
+  errorText: { color: Theme.colors.danger, marginBottom: 12 },
+  retryButton: { backgroundColor: Theme.colors.green, padding: 12, borderRadius: 12, borderWidth: 2, borderColor: Theme.colors.ink },
+  retryText: { color: Theme.colors.ink, fontWeight: '800' },
+  emptyText: { textAlign: 'center', color: Theme.colors.muted, marginTop: 20 },
 });

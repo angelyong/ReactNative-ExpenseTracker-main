@@ -14,6 +14,7 @@ import {
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
+import { Theme } from '../constants/theme';
 
 export default function MyAccountScreen({ navigation }) {
     const [username, setUsername] = useState('');
@@ -85,11 +86,11 @@ export default function MyAccountScreen({ navigation }) {
                             {image ? (
                                 <Image source={{ uri: image }} style={styles.avatar} />
                             ) : (
-                                <Ionicons name="person" size={42} color="#8c99ad" />
+                                <Ionicons name="person" size={42} color={Theme.colors.ink} />
                             )}
 
                             <View style={styles.cameraButton}>
-                                <Ionicons name="camera" size={15} color="#ffffff" />
+                                <Ionicons name="camera" size={15} color={Theme.colors.ink} />
                             </View>
                         </TouchableOpacity>
 
@@ -103,7 +104,7 @@ export default function MyAccountScreen({ navigation }) {
                         <View style={styles.inputGroup}>
                             <Text style={styles.label}>Username</Text>
                             <View style={styles.inputBox}>
-                                <Ionicons name="person-outline" size={18} color="#7d71ff" />
+                                <Ionicons name="person-outline" size={18} color={Theme.colors.ink} />
                                 <TextInput
                                     style={styles.input}
                                     placeholder="Enter username"
@@ -117,7 +118,7 @@ export default function MyAccountScreen({ navigation }) {
                         <View style={styles.inputGroup}>
                             <Text style={styles.label}>Phone Number</Text>
                             <View style={styles.inputBox}>
-                                <Ionicons name="call-outline" size={18} color="#7d71ff" />
+                                <Ionicons name="call-outline" size={18} color={Theme.colors.ink} />
                                 <TextInput
                                     style={styles.input}
                                     placeholder="Enter phone number"
@@ -132,7 +133,7 @@ export default function MyAccountScreen({ navigation }) {
                         <View style={styles.inputGroup}>
                             <Text style={styles.label}>Email</Text>
                             <View style={styles.inputBox}>
-                                <Ionicons name="mail-outline" size={18} color="#7d71ff" />
+                                <Ionicons name="mail-outline" size={18} color={Theme.colors.ink} />
                                 <TextInput
                                     style={styles.input}
                                     placeholder="Enter email"
@@ -160,7 +161,7 @@ export default function MyAccountScreen({ navigation }) {
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        backgroundColor: '#ffffff',
+        backgroundColor: Theme.colors.paper,
     },
     keyboardView: {
         flex: 1,
@@ -169,15 +170,15 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 18,
         paddingTop: 18,
-        backgroundColor: '#ffffff',
+        backgroundColor: Theme.colors.paper,
     },
     profileCard: {
         alignItems: 'center',
         paddingVertical: 24,
         borderRadius: 24,
-        backgroundColor: '#f4f6fb',
-        borderWidth: 1,
-        borderColor: '#e1e6f1',
+        backgroundColor: Theme.colors.blue,
+        borderWidth: 3,
+        borderColor: Theme.colors.ink,
         marginBottom: 18,
     },
     avatarOuter: {
@@ -185,8 +186,8 @@ const styles = StyleSheet.create({
         height: 104,
         borderRadius: 52,
         borderWidth: 4,
-        borderColor: '#7d71ff',
-        backgroundColor: '#e8edf5',
+        borderColor: Theme.colors.ink,
+        backgroundColor: Theme.colors.white,
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 12,
@@ -203,27 +204,27 @@ const styles = StyleSheet.create({
         width: 30,
         height: 30,
         borderRadius: 15,
-        backgroundColor: '#7d71ff',
+        backgroundColor: Theme.colors.yellow,
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 2,
-        borderColor: '#ffffff',
+        borderColor: Theme.colors.ink,
     },
     profileTitle: {
         fontSize: 22,
         fontWeight: '700',
-        color: '#4b2d23',
+        color: Theme.colors.ink,
     },
     profileSubtitle: {
         fontSize: 13,
-        color: '#8c99ad',
+        color: Theme.colors.muted,
         marginTop: 6,
     },
     formCard: {
         borderRadius: 24,
-        backgroundColor: '#ffffff',
-        borderWidth: 1,
-        borderColor: '#edf1f8',
+        backgroundColor: Theme.colors.white,
+        borderWidth: 3,
+        borderColor: Theme.colors.ink,
         padding: 16,
         shadowColor: '#000000',
         shadowOffset: {
@@ -240,16 +241,16 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 13,
         fontWeight: '700',
-        color: '#556b89',
+        color: Theme.colors.ink,
         marginBottom: 8,
         marginLeft: 4,
     },
     inputBox: {
         height: 54,
         borderRadius: 16,
-        backgroundColor: '#e8edf5',
-        borderWidth: 1,
-        borderColor: '#d5dce8',
+        backgroundColor: Theme.colors.paper,
+        borderWidth: 2,
+        borderColor: Theme.colors.ink,
         paddingHorizontal: 14,
         flexDirection: 'row',
         alignItems: 'center',
@@ -257,7 +258,7 @@ const styles = StyleSheet.create({
     input: {
         flex: 1,
         fontSize: 14,
-        color: '#556b89',
+        color: Theme.colors.ink,
         marginLeft: 10,
     },
     footer: {
@@ -267,10 +268,10 @@ const styles = StyleSheet.create({
     saveButton: {
         height: 52,
         borderRadius: 16,
-        backgroundColor: '#7d71ff',
+        backgroundColor: Theme.colors.green,
         justifyContent: 'center',
         alignItems: 'center',
-        shadowColor: '#7d71ff',
+        shadowColor: Theme.colors.ink,
         shadowOffset: {
             width: 0,
             height: 6,
@@ -280,7 +281,7 @@ const styles = StyleSheet.create({
         elevation: 4,
     },
     saveButtonText: {
-        color: '#ffffff',
+        color: Theme.colors.ink,
         fontSize: 15,
         fontWeight: '700',
     },

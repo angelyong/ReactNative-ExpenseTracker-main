@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { Text, View, Alert, Pressable } from 'react-native';
+import { Text, View, Alert, Pressable, Switch, StyleSheet } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 
@@ -26,6 +26,7 @@ import Input from "./Input";
 import DateInput from "./DateInput";
 import Loading from "../UI/Loading";
 import Error from "../UI/Error";
+import { Theme, categoryColor } from '../../constants/theme';
 
 export default function ExpenseForm({ id, defaultValues }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -38,6 +39,8 @@ export default function ExpenseForm({ id, defaultValues }) {
     price: defaultValues ? defaultValues.price.toString() : "",
     type: defaultValues ? defaultValues.type : "Food",
     date: defaultValues ? new Date(defaultValues.date) : new Date(),
+    recurring: defaultValues ? Boolean(defaultValues.recurring) : false,
+    kind: defaultValues ? (defaultValues.kind || 'expense') : 'expense',
   });
 
   const dispatch = useDispatch();
@@ -88,6 +91,8 @@ export default function ExpenseForm({ id, defaultValues }) {
       price: +inputValues.price,
       date: inputValues.date.toISOString(),
       type: inputValues.type,
+      recurring: inputValues.recurring,
+      kind: inputValues.kind,
     };
 
     setIsLoading(true);
@@ -154,8 +159,8 @@ export default function ExpenseForm({ id, defaultValues }) {
   }
 
   return (
-    <View className="flex-1 p-5">
-      <View className="my-4 p-5 bg-gray-600 rounded-lg">
+    <View style={styles.screen}>
+      <View style={styles.card}>
         
         {/* TITLE */}
         <Input
@@ -165,6 +170,19 @@ export default function ExpenseForm({ id, defaultValues }) {
             onChangeText: inputValuesHandler.bind(this, "title"),
           }}
         />
+
+        <Text style={styles.sectionLabel}>Transaction kind</Text>
+        <View style={styles.kindRow}>
+          {['expense', 'income'].map((kind) => (
+            <Pressable
+              key={kind}
+              onPress={() => inputValuesHandler('kind', kind)}
+              style={[styles.kindButton, inputValues.kind === kind && styles.kindButtonSelected]}
+            >
+              <Text style={styles.kindText}>{kind}</Text>
+            </Pressable>
+          ))}
+        </View>
 
         {/* PRICE */}
         <Input
@@ -177,24 +195,18 @@ export default function ExpenseForm({ id, defaultValues }) {
         />
 
         {/* TYPE */}
-        <View className="my-3">
-          <Text className="text-white font-semibold mb-2">Type</Text>
+        <View style={styles.typeSection}>
+          <Text style={styles.sectionLabel}>Category</Text>
 
           {/* Dynamic Types */}
-          <View className="flex-row flex-wrap">
+          <View style={styles.typeRow}>
             {types.map((t) => (
               <Pressable
                 key={t.id}
                 onPress={() => inputValuesHandler("type", t.name)}
-                style={{
-                  padding: 8,
-                  margin: 4,
-                  borderRadius: 10,
-                  backgroundColor:
-                    inputValues.type === t.name ? "#7d71ff" : "#ccc",
-                }}
+                style={[styles.typeButton, { backgroundColor: inputValues.type === t.name ? categoryColor(t.name) : Theme.colors.paper }]}
               >
-                <Text style={{ color: "white" }}>{t.name}</Text>
+                <Text style={styles.typeText}>{t.name}</Text>
               </Pressable>
             ))}
           </View>
@@ -202,14 +214,9 @@ export default function ExpenseForm({ id, defaultValues }) {
           {/* Manage Button */}
           <Pressable
             onPress={() => navigation.navigate("ManageExpenseTypes")}
-            style={{
-              backgroundColor: "#444",
-              padding: 10,
-              borderRadius: 6,
-              marginTop: 10,
-            }}
+            style={styles.manageTypesButton}
           >
-            <Text style={{ color: "white", textAlign: "center" }}>
+            <Text style={styles.manageTypesText}>
               Manage Types
             </Text>
           </Pressable>
@@ -220,6 +227,19 @@ export default function ExpenseForm({ id, defaultValues }) {
           onChange={inputValuesHandler.bind(this, "date")}
           date={inputValues.date}
         />
+
+        <View style={styles.recurringRow}>
+          <View>
+            <Text style={styles.sectionLabel}>Recurring payment</Text>
+            <Text style={styles.helper}>Show a reminder label for this transaction</Text>
+          </View>
+          <Switch
+            value={inputValues.recurring}
+            onValueChange={(value) => inputValuesHandler('recurring', value)}
+            trackColor={{ false: Theme.colors.line, true: Theme.colors.green }}
+            thumbColor={Theme.colors.ink}
+          />
+        </View>
       </View>
 
       {/* BUTTONS */}
@@ -231,3 +251,21 @@ export default function ExpenseForm({ id, defaultValues }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  screen: { flex: 1, backgroundColor: Theme.colors.paper, padding: 20 },
+  card: { backgroundColor: Theme.colors.white, borderWidth: 3, borderColor: Theme.colors.ink, borderRadius: 24, padding: 18, marginTop: 4 },
+  sectionLabel: { color: Theme.colors.ink, fontSize: 13, fontWeight: '800' },
+  kindRow: { flexDirection: 'row', gap: 8, marginTop: 8, marginBottom: 14 },
+  kindButton: { flex: 1, paddingVertical: 11, borderRadius: 12, borderWidth: 2, borderColor: Theme.colors.ink, backgroundColor: Theme.colors.paper, alignItems: 'center' },
+  kindButtonSelected: { backgroundColor: Theme.colors.green },
+  kindText: { color: Theme.colors.ink, fontWeight: '800', textTransform: 'capitalize' },
+  typeSection: { marginTop: 2, marginBottom: 13 },
+  typeRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 8 },
+  typeButton: { paddingHorizontal: 12, paddingVertical: 9, borderRadius: 12, borderWidth: 2, borderColor: Theme.colors.ink },
+  typeText: { color: Theme.colors.ink, fontWeight: '700', fontSize: 12 },
+  manageTypesButton: { backgroundColor: Theme.colors.yellow, paddingVertical: 10, borderRadius: 12, marginTop: 12, borderWidth: 2, borderColor: Theme.colors.ink },
+  manageTypesText: { color: Theme.colors.ink, textAlign: 'center', fontWeight: '800' },
+  recurringRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 16, paddingTop: 14, borderTopWidth: 2, borderTopColor: Theme.colors.line },
+  helper: { color: Theme.colors.muted, fontSize: 12, marginTop: 4 },
+});

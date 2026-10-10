@@ -7,6 +7,9 @@ import MyAccountScreen from './MyAccountScreen';
 import CurrencySettingScreen from './CurrencySettingScreen';
 import NotificationScreen from './NotificationScreen';
 import SetBudgetScreen from './SetBudgetScreen';
+import HomeScreen from './HomeScreen';
+import TransactionsScreen from './TransactionsScreen';
+import BudgetScreen from './BudgetScreen';
 
 export { 
     AllExpensesScreen, 
@@ -18,6 +21,9 @@ export {
     CurrencySettingScreen,
     NotificationScreen,
     SetBudgetScreen,
+    HomeScreen,
+    TransactionsScreen,
+    BudgetScreen,
 
 
 };

@@ -1,5 +1,5 @@
 import { View } from 'react-native';
-import { GlobalStyles } from '../../constants/styles';
+import { Theme } from '../../constants/theme';
 import Button from '../UI/Button';
 
 export default function ActionButtons({ id, onSubmit, onDelete }) {
@@ -7,7 +7,7 @@ export default function ActionButtons({ id, onSubmit, onDelete }) {
     <View className="w-full my-3 flex-row justify-center items-center">
       {id && (
         <Button
-          style={{ backgroundColor: GlobalStyles.colors.secondaryButton }}
+          style={{ backgroundColor: Theme.colors.coral }}
           classes="w-28 mx-2"
           onPress={onDelete}
         >
@@ -16,7 +16,7 @@ export default function ActionButtons({ id, onSubmit, onDelete }) {
       )}
 
       <Button
-        style={{ backgroundColor: GlobalStyles.colors.primaryButton }}
+        style={{ backgroundColor: Theme.colors.green }}
         classes="w-28 mx-2"
         onPress={onSubmit}
       >

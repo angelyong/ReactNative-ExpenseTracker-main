@@ -11,6 +11,7 @@ import {
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
+import { Theme } from '../constants/theme';
 
 export default function MyProfileScreen({ navigation }) {
     const [name, setName] = useState('User Name');
@@ -65,7 +66,7 @@ export default function MyProfileScreen({ navigation }) {
                         onPress={() => navigation.navigate('MyAccount')}
                     >
                         <View style={styles.menuIconCircle}>
-                            <Ionicons name="person" size={14} color="#7d71ff" />
+                            <Ionicons name="person" size={14} color={Theme.colors.ink} />
                         </View>
 
                         <View style={styles.menuTextBox}>
@@ -79,7 +80,7 @@ export default function MyProfileScreen({ navigation }) {
                         onPress={() => navigation.navigate('CurrencySetting')}
                     >
                         <View style={styles.menuIconCircle}>
-                            <Ionicons name="cash-outline" size={14} color="#7d71ff" />
+                            <Ionicons name="cash-outline" size={14} color={Theme.colors.ink} />
                         </View>
 
                         <View style={styles.menuTextBox}>
@@ -93,7 +94,7 @@ export default function MyProfileScreen({ navigation }) {
                         onPress={() => navigation.navigate('SetBudget')}
                     >
                         <View style={styles.menuIconCircle}>
-                            <Ionicons name="wallet-outline" size={14} color="#7d71ff" />
+                            <Ionicons name="wallet-outline" size={14} color={Theme.colors.ink} />
                         </View>
 
                         <View style={styles.menuTextBox}>
@@ -107,7 +108,7 @@ export default function MyProfileScreen({ navigation }) {
                         onPress={() => navigation.navigate('Notifications')}
                     >
                         <View style={styles.menuIconCircle}>
-                            <Ionicons name="notifications-outline" size={14} color="#7d71ff" />
+                            <Ionicons name="notifications-outline" size={14} color={Theme.colors.ink} />
                         </View>
 
                         <View style={styles.menuTextBox}>
@@ -121,7 +122,7 @@ export default function MyProfileScreen({ navigation }) {
                         onPress={() => navigation.navigate('HelpCenter')}
                     >
                         <View style={styles.menuIconCircle}>
-                            <Ionicons name="help-circle" size={14} color="#7d71ff" />
+                            <Ionicons name="help-circle" size={14} color={Theme.colors.ink} />
                         </View>
 
                         <View style={styles.menuTextBox}>
@@ -138,17 +139,17 @@ export default function MyProfileScreen({ navigation }) {
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        backgroundColor: '#ffffff',
+        backgroundColor: Theme.colors.paper,
     },
     scrollView: {
         flex: 1,
-        backgroundColor: '#ffffff',
+        backgroundColor: Theme.colors.paper,
     },
     scrollContent: {
         paddingHorizontal: 24,
         paddingTop: 70,
         paddingBottom: 120,
-        backgroundColor: '#ffffff',
+        backgroundColor: Theme.colors.paper,
     },
     avatarSection: {
         alignItems: 'center',
@@ -160,10 +161,10 @@ const styles = StyleSheet.create({
         height: 120,
         borderRadius: 60,
         borderWidth: 4,
-        borderColor: '#7d71ff',
+        borderColor: Theme.colors.ink,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#e8edf5',
+        backgroundColor: Theme.colors.blue,
     },
     avatar: {
         width: 106,
@@ -174,7 +175,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 22,
         fontWeight: '700',
-        color: '#556b89',
+        color: Theme.colors.ink,
         marginBottom: 28,
     },
     menuList: {
@@ -183,7 +184,9 @@ const styles = StyleSheet.create({
     menuCard: {
         minHeight: 76,
         borderRadius: 18,
-        backgroundColor: '#e8edf5',
+        backgroundColor: Theme.colors.white,
+        borderWidth: 3,
+        borderColor: Theme.colors.ink,
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 18,
@@ -192,7 +195,7 @@ const styles = StyleSheet.create({
         width: 32,
         height: 32,
         borderRadius: 16,
-        backgroundColor: '#edf1f8',
+        backgroundColor: Theme.colors.green,
         justifyContent: 'center',
         alignItems: 'center',
         marginRight: 14,
@@ -203,11 +206,11 @@ const styles = StyleSheet.create({
     menuText: {
         fontSize: 15,
         fontWeight: '700',
-        color: '#556b89',
+        color: Theme.colors.ink,
     },
     menuSubText: {
         fontSize: 12,
-        color: '#8c99ad',
+        color: Theme.colors.muted,
         marginTop: 3,
     },
 });

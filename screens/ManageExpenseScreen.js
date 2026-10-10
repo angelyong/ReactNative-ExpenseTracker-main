@@ -2,6 +2,7 @@ import { useLayoutEffect } from "react";
 import { Text, View } from "react-native";
 import { ExpenseForm } from "../components";
 import { useSelector } from "react-redux";
+import { Theme } from "../constants/theme";
 
 export default function ManageExpenseScreen({ route, navigation }) {
   const id = route.params?.id;
@@ -20,14 +21,14 @@ export default function ManageExpenseScreen({ route, navigation }) {
 
   if (id && !expense) {
     return (
-      <View className="flex-1 items-center justify-center">
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: Theme.colors.paper }}>
         <Text>Expense not found</Text>
       </View>
     );
   }
 
   return (
-    <View className="flex-1 p-5">
+    <View style={{ flex: 1, backgroundColor: Theme.colors.paper }}>
       <ExpenseForm id={id} defaultValues={expense ?? undefined} />
     </View>
   );
